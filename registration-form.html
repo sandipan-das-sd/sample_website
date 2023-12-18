@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="form.css" />
+    <script>
+        function validateForm() {
+            var name = document.getElementById("name").value;
+            if (name.trim() === "") {
+                alert("Please enter your name");
+                document.getElementById("name").focus();
+                return false;
+            }
+
+            var mobile = document.getElementById("mobile").value;
+            var mobileRegex = /^\d{10}$/;
+            if (!mobileRegex.test(mobile)) {
+                alert("Please enter a valid 10-digit mobile number");
+                document.getElementById("mobile").focus();
+                return false;
+            }
+
+            // Email ID validation using regex
+            var email = document.getElementById("mail").value;
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            /*
+                ^: Asserts the start of the string.
+                [^\s@]+: Matches one or more characters that are not whitespace (\s) or the at symbol (@). This part corresponds to the local part of the email address before the '@' symbol.
+                @: Matches the at symbol itself.
+                [^\s@]+: Similar to the first part, matches one or more characters that are not whitespace or the at symbol. This corresponds to the domain name before the dot ('.').
+                `\.: Escapes the dot symbol, matching it literally.
+                [^\s@]+: Matches one or more characters that are not whitespace or the at symbol. This corresponds to the top-level domain (TLD) after the dot.
+                $: Asserts the end of the string.
+                */
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address");
+                document.getElementById("mail").focus();
+                return false;
+            }
+
+            // Date of Birth validation (you may add more validations here if needed)
+            var dob = document.getElementById("dob").value;
+            if (dob.trim() === "") {
+                alert("Please enter your date of birth");
+                document.getElementById("dob").focus();
+                return false;
+            }
+
+            // Aadhar Number validation
+            var aadhar = document.getElementById("aadhar").value;
+            var aadharRegex = /^\d{4}\s\d{4}\s\d{4}$/;
+            /*
+                ^ for string
+                \d for number
+                {4}: Quantifier that specifies exactly 4 occurrences of the preceding 
+                '\d, meaning it expects four digits.
+                \s: Represents any whitespace character (e.g., space, tab).
+                $: Asserts the end of the string.
+                
+                */
+            if (!aadharRegex.test(aadhar)) {
+                alert("Please enter a valid Aadhar number (e.g., 1111 2222 3333)");
+                document.getElementById("aadhar").focus();
+                return false;
+            }
+
+            // Image size validation
+            var image = document.getElementById("image");
+            var imageSize = image.files[0].size; // in bytes
+            var maxSize = 150 * 1024; // 150 KB
+
+            if (imageSize > maxSize) {
+                alert("Image size should be less than 150 KB");
+                return false;
+            }
+            alert(
+                "Please wait. Backend service is processing. Thanks for your patience."
+            );
+            // If all validations pass, the form can be submitted
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container form">
+        <h4 class="pt-3">Student Registration Form</h4>
+        <hr />
+        <form action="#" id="registrationForm">
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Name <span style="color: red">*</span></label>
+                        <input type="text" class="form-control" id="name" aria-describedby="emailHelp"
+                            placeholder="Enter Your Name" required />
+                        <p id="validname"><i>Please Enter Your Name *</i></p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Mobile Number <span style="color: red">*</span></label>
+                        <input type="text" class="form-control" id="mobile" aria-describedby="emailHelp"
+                            placeholder="Enter Your Mobile Number" required />
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email Id</label>
+                        <input type="email" class="form-control" id="mail" aria-describedby="emailHelp"
+                            placeholder="Enter Your Email Id" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Date Of Birth <span style="color: red">*</span></label>
+                        <input type="date" class="form-control" id="dob" aria-describedby="emailHelp" required />
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Aadhar Number <span style="color: red">*</span></label>
+                        <input type="text" class="form-control" id="aadhar" aria-describedby="emailHelp"
+                            placeholder="Enter Your Mobile Number" required />
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Image <span style="color: red">*</span></label>
+                        <input type="file" class="form-control" id="image" accept=".jpg, .jpeg, .png"
+                            accearia-describedby="emailHelp" required />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 p-0 m-0">
+                    <div class="btn">
+                        <input type="submit" name="ok" value="Submit" onclick="return validateForm()"
+                            class="btn btn-primary" />
+                        <input type="reset" value="Reset" class="btn btn-danger mr-2" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
